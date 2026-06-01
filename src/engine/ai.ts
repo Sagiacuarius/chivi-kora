@@ -10,7 +10,7 @@ import { getHeuristicForPlayer } from './domain/heuristic';
 // TIPOS PÚBLICOS
 // ──────────────────────────────────────────────────────────────
 
-export type Difficulty = 'easy' | 'hard';
+export type Difficulty = 'easy' | 'medium' | 'hard';
 
 export interface AIConfig {
   difficulty: Difficulty;
@@ -31,7 +31,8 @@ export interface AIBestMove {
 
 const DEPTH_MAP: Record<Difficulty, number> = {
   easy: 3,
-  hard: 5,
+  medium: 5,
+  hard: 7,
 };
 
 // ──────────────────────────────────────────────────────────────

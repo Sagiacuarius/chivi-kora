@@ -36,6 +36,7 @@ function makeState(overrides: {
 }
 
 const easyConfig: AIConfig = { difficulty: 'easy', timeBudget: 2000 };
+const mediumConfig: AIConfig = { difficulty: 'medium', timeBudget: 2000 };
 const hardConfig: AIConfig = { difficulty: 'hard', timeBudget: 2000 };
 
 // ============================================================
@@ -117,8 +118,8 @@ describe('Heurística', () => {
     expect(scoreCentro).toBeGreaterThan(scoreCueva);
   });
 
-  it('evaluatePerros retorna score positivo cuando el yaguareté está acorralado', () => {
-    // Yaguareté en 0 con perros rodeándolo vs. estado inicial
+  it('evaluatePerros prefiere yaguareté acorralado sobre estado inicial', () => {
+    // Yaguareté en esquina con perros rodeándolo
     const stateAcorralado = makeState({
       pieces: [
         piece('yaguarete', 0),
@@ -128,9 +129,59 @@ describe('Heurística', () => {
       ],
       status: 'playing',
     });
-    const score = evaluatePerros(boardTopology, stateAcorralado);
-    // El yaguareté está acorralado → score positivo para perros
-    expect(score).toBeGreaterThan(0);
+    const stateInicial = createGame(boardTopology);
+    const scoreAcorralado = evaluatePerros(boardTopology, stateAcorralado);
+    const scoreInicial = evaluatePerros(boardTopology, stateInicial);
+    // Yaguareté acorralado en esquina es mejor para perros que estado inicial
+    expect(scoreAcorralado).toBeGreaterThan(scoreInicial);
+  });
+
+  it('evaluateYaguarete premia tener capturas disponibles', () => {
+    // Yaguareté con perro adyacente capturable
+    const stateConCaptura = makeState({
+      pieces: [
+        piece('yaguarete', 27),
+        piece('perros', 22), // adyacente a 27, salto a 17
+      ],
+      currentTurn: 'yaguarete',
+      status: 'playing',
+    });
+    const stateSinCaptura = makeState({
+      pieces: [
+        piece('yaguarete', 27),
+        piece('perros', 0), // lejos, no capturable
+      ],
+      currentTurn: 'yaguarete',
+      status: 'playing',
+    });
+    const scoreCon = evaluateYaguarete(boardTopology, stateConCaptura);
+    const scoreSin = evaluateYaguarete(boardTopology, stateSinCaptura);
+    expect(scoreCon).toBeGreaterThan(scoreSin);
+  });
+
+  it('evaluatePerros penaliza perros aislados', () => {
+    // Perros juntos vs. perros dispersos
+    const stateJuntos = makeState({
+      pieces: [
+        piece('yaguarete', 12),
+        piece('perros', 6), piece('perros', 7), piece('perros', 8),
+        piece('perros', 11), piece('perros', 13),
+        piece('perros', 16), piece('perros', 17), piece('perros', 18),
+      ],
+      status: 'playing',
+    });
+    const stateDispersos = makeState({
+      pieces: [
+        piece('yaguarete', 12),
+        piece('perros', 0), piece('perros', 4),
+        piece('perros', 20), piece('perros', 24),
+      ],
+      status: 'playing',
+    });
+    const scoreJuntos = evaluatePerros(boardTopology, stateJuntos);
+    const scoreDispersos = evaluatePerros(boardTopology, stateDispersos);
+    // Perros juntos forman mejor cerco → mayor score
+    expect(scoreJuntos).toBeGreaterThan(scoreDispersos);
   });
 });
 
@@ -177,13 +228,16 @@ describe('findBestMove', () => {
     expect(pieceAtOrigin).toBeDefined();
   });
 
-  it('fácil y difícil retornan estructuras similares', () => {
+  it('fácil, medio y difícil retornan estructuras similares', () => {
     const state = createGame(boardTopology);
     const easy = findBestMove(boardTopology, state, 'yaguarete', easyConfig);
+    const medium = findBestMove(boardTopology, state, 'yaguarete', mediumConfig);
     const hard = findBestMove(boardTopology, state, 'yaguarete', hardConfig);
     expect(easy).not.toBeNull();
+    expect(medium).not.toBeNull();
     expect(hard).not.toBeNull();
     expect(typeof easy!.fromNode).toBe(typeof hard!.fromNode);
+    expect(typeof medium!.fromNode).toBe(typeof hard!.fromNode);
   });
 
   it('minimax converge: todos los movimientos del primer nivel se evalúan', () => {

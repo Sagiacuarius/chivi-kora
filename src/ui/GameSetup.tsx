@@ -249,6 +249,29 @@ export function GameSetup({
           </span>
         </label>
 
+        <label style={optionStyle(difficulty === 'medium', '#b8860b')}>
+          <input
+            type="radio"
+            name="difficulty"
+            value="medium"
+            checked={difficulty === 'medium'}
+            onChange={() => onDifficultyChange('medium')}
+            style={{ ...RADIO_STYLE, accentColor: '#b8860b' }}
+          />
+          <span style={{ fontSize: '1.4rem' }}>🌿</span>
+          <span style={{ fontSize: '1.15rem', fontWeight: 600, color: '#d4a843' }}>{t('normal')}</span>
+          <span
+            style={{
+              marginLeft: 'auto',
+              fontSize: '0.75rem',
+              color: '#7a6a58',
+              fontStyle: 'italic',
+            }}
+          >
+            {t('profundidad_n').replace('{n}', '5')}
+          </span>
+        </label>
+
         <label style={optionStyle(difficulty === 'hard', '#c04040')}>
           <input
             type="radio"
@@ -268,7 +291,7 @@ export function GameSetup({
               fontStyle: 'italic',
             }}
           >
-            {t('profundidad_n').replace('{n}', '5')}
+            {t('profundidad_n').replace('{n}', '7')}
           </span>
         </label>
       </fieldset>
