@@ -8,7 +8,7 @@ El **Yaguareté** 🐆 debe capturar a los **Perros** 🐕 saltando sobre ellos,
 
 ## 🎮 Demo
 
-Próximamente en Vercel.
+🔗 **[chivi-kora.vercel.app](https://chivi-kora.vercel.app)**
 
 ## 🧠 Reglas
 
