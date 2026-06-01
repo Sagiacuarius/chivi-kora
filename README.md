@@ -11,7 +11,7 @@ Próximamente en Vercel.
 ## 🧠 Reglas
 
 - Tablero: grafo de 34 nodos conectados
-- 1 Yaguareté (naranja) vs 15 Perros (marrón oscuro)
+- 1 Yaguareté 🐆 vs 15 Perros 🐕
 - El Yaguareté mueve 1 casilla en cualquier dirección o captura saltando sobre un perro
 - Los Perros mueven 1 casilla en cualquier dirección (incluyendo retroceso y diagonal)
 - Gana el Yaguareté si reduce los perros a 6 (captura 9)
@@ -22,7 +22,7 @@ Próximamente en Vercel.
 - **Clean Architecture** con separación de dominio, casos de uso e interfaz
 - **Game Engine** con estado inmutable y detección de victoria
 - **Tutorial interactivo** paso a paso con highlights y narración
-- **Piezas SVG** con diseño de siluetas realistas (felino y canino)
+- **Piezas SVG** con diseño de siluetas realistas (🐆 felino y 🐕 canino)
 
 ## 🛠️ Stack
 
