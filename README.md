@@ -10,11 +10,11 @@ Próximamente en Vercel.
 
 ## 🧠 Reglas
 
-- Tablero de 15 posiciones conectadas
-- 1 Yaguareté (naranja) vs 7 Perros (marrón oscuro)
+- Tablero: grafo de 34 nodos conectados
+- 1 Yaguareté (naranja) vs 15 Perros (marrón oscuro)
 - El Yaguareté mueve 1 casilla en cualquier dirección o captura saltando sobre un perro
-- Los Perros mueven 1 casilla hacia adelante o los costados (no retroceden)
-- Gana el Yaguareté si captura 4+ perros
+- Los Perros mueven 1 casilla en cualquier dirección (incluyendo retroceso y diagonal)
+- Gana el Yaguareté si reduce los perros a 6 (captura 9)
 - Ganan los Perros si acorralan al Yaguareté (sin movimientos posibles)
 
 ## 🏗️ Arquitectura
