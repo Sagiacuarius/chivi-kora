@@ -5,6 +5,7 @@
 import type { Player } from '../engine/domain/types';
 import type { Difficulty } from '../engine/ai';
 import { CulturalPanel } from './CulturalPanel';
+import { useT } from '../i18n/LanguageContext';
 
 interface GameSetupProps {
   playerSide: Player;
@@ -69,6 +70,7 @@ export function GameSetup({
   onDifficultyChange,
   onStart,
 }: GameSetupProps) {
+  const t = useT();
   return (
     <div
       style={{
@@ -125,7 +127,7 @@ export function GameSetup({
             letterSpacing: '0.03em',
           }}
         >
-          El Juego del Yaguareté · Patrimonio mbya guaraní
+          {t('game_setup_subtitle')}
         </p>
 
         {/* Ornamento inferior */}
@@ -155,7 +157,7 @@ export function GameSetup({
           animation: 'fadeSlideIn 0.5s ease-out 0.1s both',
         }}
       >
-        <legend style={LEGEND_STYLE}>Jugás como</legend>
+        <legend style={LEGEND_STYLE}>{t('jugas_como')}</legend>
 
         <label style={optionStyle(playerSide === 'yaguarete', '#d4820a')}>
           <input
@@ -169,7 +171,7 @@ export function GameSetup({
           {/* Ícono de yaguareté */}
           <span style={{ fontSize: '1.5rem' }}>🐆</span>
           <span style={{ fontSize: '1.15rem', fontWeight: 600, color: '#d4a843' }}>
-            Yaguareté
+            {t('yaguarete_label')}
           </span>
           <span
             style={{
@@ -179,7 +181,7 @@ export function GameSetup({
               fontStyle: 'italic',
             }}
           >
-            atacás
+            {t('atacas')}
           </span>
         </label>
 
@@ -195,7 +197,7 @@ export function GameSetup({
           {/* Ícono de perro */}
           <span style={{ fontSize: '1.5rem' }}>🐕</span>
           <span style={{ fontSize: '1.15rem', fontWeight: 600, color: '#c0a080' }}>
-            Perros
+            {t('perros_label')}
           </span>
           <span
             style={{
@@ -205,7 +207,7 @@ export function GameSetup({
               fontStyle: 'italic',
             }}
           >
-            defendés
+            {t('defendes')}
           </span>
         </label>
       </fieldset>
@@ -220,7 +222,7 @@ export function GameSetup({
           animation: 'fadeSlideIn 0.5s ease-out 0.2s both',
         }}
       >
-        <legend style={LEGEND_STYLE}>Dificultad</legend>
+        <legend style={LEGEND_STYLE}>{t('dificultad')}</legend>
 
         <label style={optionStyle(difficulty === 'easy', '#4a7c59')}>
           <input
@@ -232,7 +234,7 @@ export function GameSetup({
             style={{ ...RADIO_STYLE, accentColor: '#4a7c59' }}
           />
           <span style={{ fontSize: '1.4rem' }}>🌱</span>
-          <span style={{ fontSize: '1.15rem', fontWeight: 600, color: '#7aaa8a' }}>Fácil</span>
+          <span style={{ fontSize: '1.15rem', fontWeight: 600, color: '#7aaa8a' }}>{t('facil')}</span>
           <span
             style={{
               marginLeft: 'auto',
@@ -241,7 +243,7 @@ export function GameSetup({
               fontStyle: 'italic',
             }}
           >
-            profundidad 3
+            {t('profundidad_n').replace('{n}', '3')}
           </span>
         </label>
 
@@ -255,7 +257,7 @@ export function GameSetup({
             style={{ ...RADIO_STYLE, accentColor: '#c04040' }}
           />
           <span style={{ fontSize: '1.4rem' }}>🔥</span>
-          <span style={{ fontSize: '1.15rem', fontWeight: 600, color: '#c06060' }}>Difícil</span>
+          <span style={{ fontSize: '1.15rem', fontWeight: 600, color: '#c06060' }}>{t('dificil')}</span>
           <span
             style={{
               marginLeft: 'auto',
@@ -264,7 +266,7 @@ export function GameSetup({
               fontStyle: 'italic',
             }}
           >
-            profundidad 5
+            {t('profundidad_n').replace('{n}', '5')}
           </span>
         </label>
       </fieldset>
@@ -302,7 +304,7 @@ export function GameSetup({
           btn.style.boxShadow = '0 6px 20px rgba(212,130,10,0.4), inset 0 1px 0 rgba(255,255,255,0.15)';
         }}
       >
-        Comenzar partida
+        {t('empezar_partida')}
       </button>
     </div>
   );

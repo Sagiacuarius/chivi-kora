@@ -5,6 +5,8 @@
 import { useState } from 'react';
 import type { Node, Edge } from '../engine/domain/types';
 import { boardTopology } from '../engine/domain/board-topology';
+import { useT } from '../i18n/LanguageContext';
+import type { TranslationKey } from '../i18n/translations';
 
 interface TutorialStep {
   title: string;
@@ -26,8 +28,8 @@ interface TutorialPiece {
 const STEPS: TutorialStep[] = [
   // Paso 1: El tablero
   {
-    title: 'El tablero',
-    text: 'El Chiví Korá se juega en un grafo de 29 nodos: una grilla de 5×5 más una cueva de 4 nodos al pie del tablero. Las líneas muestran las conexiones válidas entre nodos.',
+    title: 'tutorial_paso1_titulo',
+    text: 'tutorial_paso1_texto',
     nodes: boardTopology.getNodes(),
     edges: boardTopology.getEdges(),
     examplePieces: [],
@@ -35,8 +37,8 @@ const STEPS: TutorialStep[] = [
   },
   // Paso 2: Las piezas
   {
-    title: 'Las piezas',
-    text: 'El Yaguareté (🐆) empieza en la Cueva (nodo 27). Los Perros (🐕) empiezan en las filas superiores. Son 15 perros contra 1 yaguareté.',
+    title: 'tutorial_paso2_titulo',
+    text: 'tutorial_paso2_texto',
     nodes: boardTopology.getNodes(),
     edges: boardTopology.getEdges(),
     examplePieces: [
@@ -60,8 +62,8 @@ const STEPS: TutorialStep[] = [
   },
   // Paso 3: El Yaguareté
   {
-    title: 'El Yaguareté se mueve libre',
-    text: 'El Yaguareté puede moverse en cualquier dirección: arriba, abajo, lateral o diagonal. Un paso por turno. Tiene hasta 8 movimientos posibles.',
+    title: 'tutorial_paso3_titulo',
+    text: 'tutorial_paso3_texto',
     nodes: boardTopology.getNodes(),
     edges: boardTopology.getEdges(),
     examplePieces: [
@@ -71,8 +73,8 @@ const STEPS: TutorialStep[] = [
   },
   // Paso 4: Movimiento del perro en el centro (REGLAS NUEVAS)
   {
-    title: 'Los perros también se mueven libre',
-    text: 'Acá ves un perro en el centro del tablero. Puede moverse en las 8 direcciones, igual que el Yaguareté. Los perros ya no están limitados a avanzar solamente.',
+    title: 'tutorial_paso4_titulo',
+    text: 'tutorial_paso4_texto',
     nodes: boardTopology.getNodes(),
     edges: boardTopology.getEdges(),
     examplePieces: [
@@ -82,8 +84,8 @@ const STEPS: TutorialStep[] = [
   },
   // Paso 5: Captura
   {
-    title: 'Cómo captura el Yaguareté',
-    text: 'El Yaguareté salta sobre un perro adyacente hacia un nodo vacío detrás de él. El perro capturado se retira del tablero.',
+    title: 'tutorial_paso5_titulo',
+    text: 'tutorial_paso5_texto',
     nodes: boardTopology.getNodes(),
     edges: boardTopology.getEdges(),
     examplePieces: [
@@ -96,8 +98,8 @@ const STEPS: TutorialStep[] = [
   },
   // Paso 6: Victoria de los perros
   {
-    title: 'Cómo ganan los perros',
-    text: 'Los perros ganan acorralando al Yaguareté. Si el Yaguareté no tiene ningún movimiento válido (ni salto), pierde. Con los perros bien posicionados, incluso con pocos se puede lograr el cerco.',
+    title: 'tutorial_paso6_titulo',
+    text: 'tutorial_paso6_texto',
     nodes: boardTopology.getNodes(),
     edges: boardTopology.getEdges(),
     examplePieces: [
@@ -115,8 +117,8 @@ const STEPS: TutorialStep[] = [
   },
   // Paso 7: Victoria del Yaguareté
   {
-    title: 'Cómo gana el Yaguareté',
-    text: 'El Yaguareté gana capturando perros. Cuando quedan exactamente 6 perros en el tablero, el Yaguareté se libera y gana la partida.',
+    title: 'tutorial_paso7_titulo',
+    text: 'tutorial_paso7_texto',
     nodes: boardTopology.getNodes(),
     edges: boardTopology.getEdges(),
     examplePieces: [
@@ -150,6 +152,7 @@ function TutorialBoard({
   highlightedEdgeFrom?: number;
   highlightedEdgeTo?: number;
 }) {
+  const t = useT();
   const nodesMap = new Map(nodes.filter(Boolean).map(n => [n.id, n]));
 
   // Patrón de ajedrez para diagonales (misma lógica que Board.tsx)
@@ -301,7 +304,7 @@ function TutorialBoard({
           fontFamily="'Nunito', sans-serif"
           fontStyle="italic"
         >
-          Cueva
+          {t('cueva')}
         </text>
       )}
     </svg>
@@ -310,6 +313,7 @@ function TutorialBoard({
 
 export function Tutorial({ onComplete, onSkip }: TutorialProps) {
   const [step, setStep] = useState(0);
+  const t = useT();
   const current = STEPS[step]!;
   const isLast = step === STEPS.length - 1;
   const progress = (step + 1) / STEPS.length;
@@ -367,7 +371,7 @@ export function Tutorial({ onComplete, onSkip }: TutorialProps) {
           textAlign: 'center',
         }}
       >
-        {current.title}
+        {t(current.title as TranslationKey)}
       </h2>
 
       {/* Tablero con ejemplo */}
@@ -403,7 +407,7 @@ export function Tutorial({ onComplete, onSkip }: TutorialProps) {
           maxWidth: 480,
         }}
       >
-        {current.text}
+        {t(current.text as TranslationKey)}
       </p>
 
       {/* Navegación */}
@@ -433,7 +437,7 @@ export function Tutorial({ onComplete, onSkip }: TutorialProps) {
             transition: 'border-color 0.2s, color 0.2s',
           }}
         >
-          ← Anterior
+          ← {t('anterior')}
         </button>
 
         {/* Saltar */}
@@ -450,7 +454,7 @@ export function Tutorial({ onComplete, onSkip }: TutorialProps) {
             fontSize: '0.9rem',
           }}
         >
-          Saltar
+          {t('saltar')}
         </button>
 
         {/* Siguiente / Jugar */}
@@ -470,7 +474,7 @@ export function Tutorial({ onComplete, onSkip }: TutorialProps) {
             boxShadow: '0 4px 12px rgba(212,130,10,0.3)',
           }}
         >
-          {isLast ? 'Jugar ahora' : 'Siguiente →'}
+          {isLast ? t('jugar_ahora') : t('siguiente') + ' →'}
         </button>
       </div>
     </div>

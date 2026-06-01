@@ -4,12 +4,14 @@
 
 import { useEffect, useRef } from 'react';
 import type { Move } from '../engine/domain/types';
+import { useT } from '../i18n/LanguageContext';
 
 interface MoveHistoryProps {
   moves: Move[];
 }
 
 export function MoveHistory({ moves }: MoveHistoryProps) {
+  const t = useT();
   const bottomRef = useRef<HTMLDivElement>(null);
 
   // Auto-scroll al último movimiento
@@ -41,7 +43,7 @@ export function MoveHistory({ moves }: MoveHistoryProps) {
           borderBottom: '1px solid #3d2b1a',
         }}
       >
-        Historial · {moves.length} movimientos
+        {t('historial_n_moves').replace('{n}', String(moves.length))}
       </h3>
 
       <div
@@ -99,7 +101,7 @@ export function MoveHistory({ moves }: MoveHistoryProps) {
                 }}
               >
                 {isCapture
-                  ? `Captura en nodo ${move.toNode}`
+                  ? t('captura_en_nodo').replace('{n}', String(move.toNode))
                   : `${move.fromNode} → ${move.toNode}`}
               </span>
             </div>

@@ -4,6 +4,7 @@
 // Animaciones CSS para selección y captura.
 
 import type { Piece as PieceType } from '../engine/domain/types';
+import { useT } from '../i18n/LanguageContext';
 
 interface PieceProps {
   piece: PieceType;
@@ -51,6 +52,7 @@ export function Piece({
 }: PieceProps) {
   if (piece.captured) return null;
 
+  const t = useT();
   const style = PIECE_STYLE[piece.type]!;
   const r = style.radius;
   const cursor = onClick ? 'pointer' : 'default';
@@ -61,7 +63,9 @@ export function Piece({
       style={{ cursor, transition: 'transform 0.3s ease' }}
       role="button"
       aria-label={
-        piece.type === 'yaguarete' ? `Yaguareté en nodo ${piece.nodeId}` : `Perro en nodo ${piece.nodeId}`
+        piece.type === 'yaguarete'
+          ? t('pieza_yaguarete_nodo').replace('{n}', String(piece.nodeId))
+          : t('pieza_perro_nodo').replace('{n}', String(piece.nodeId))
       }
     >
       {/* Sombra */}

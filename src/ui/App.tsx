@@ -16,20 +16,10 @@ import { Tutorial } from './Tutorial';
 import { useSound } from './useSound';
 import type { AIBestMove } from '../engine/ai';
 import { boardTopology } from '../engine/domain/board-topology';
+import { useT } from '../i18n/LanguageContext';
+import { LanguageSelector } from '../i18n/LanguageSelector';
 
 type GamePhase = 'setup' | 'playing' | 'ended';
-
-const STATUS_LABEL: Record<GameStatus, string> = {
-  playing: '',
-  perros_win_acorralado: '¡Ganaron los Perros!',
-  yaguarete_win_umbral: '¡Ganó el Yaguareté!',
-};
-
-const STATUS_SUBTITLE: Record<GameStatus, string> = {
-  playing: '',
-  perros_win_acorralado: 'Yaguareté acorralado',
-  yaguarete_win_umbral: 'Umbral de 6 perros alcanzado',
-};
 
 const TURN_ICON: Record<Player, string> = {
   yaguarete: '🐆',
@@ -44,6 +34,8 @@ export function App() {
   const [playerSide, setPlayerSideLocal] = useState<Player>('yaguarete');
   const [difficulty, setDifficultyLocal] = useState<Difficulty>('easy');
   const [showTutorial, setShowTutorial] = useState(true);
+
+  const t = useT();
 
   // ── Sonido ──────────────────────────────────────────────
   const { muted, setMuted, playMove, playCapture, playVictoryYaguarete, playVictoryPerros } = useSound();
@@ -176,6 +168,7 @@ export function App() {
 
   return (
     <>
+      <LanguageSelector />
       {/* Pantalla de resultado */}
       {isEnded && (
         <GameOver
@@ -220,7 +213,7 @@ export function App() {
                 textShadow: '0 1px 4px rgba(0,0,0,0.4)',
               }}
             >
-              {STATUS_LABEL[state.status]}
+              {t(state.status === 'yaguarete_win_umbral' ? 'gano_yaguarete' : 'ganaron_perros')}
             </p>
             <p
               style={{
@@ -230,7 +223,7 @@ export function App() {
                 fontStyle: 'italic',
               }}
             >
-              {STATUS_SUBTITLE[state.status]}
+              {t(state.status === 'yaguarete_win_umbral' ? 'umbral_alcanzado' : 'yaguarete_acorralado')}
             </p>
           </div>
         ) : (
@@ -253,20 +246,20 @@ export function App() {
                   animation: 'thinkingPulse 1.2s ease-in-out infinite',
                 }}
               >
-                La IA está pensando...
+                {t('ia_pensando')}
               </span>
             ) : (
               <>
                 <span style={{ fontSize: '1.2rem' }}>{turnIcon}</span>
                 <span>
-                  {state.currentTurn === 'yaguarete' ? 'Turno del Yaguareté' : 'Turno de los Perros'}
+                  {state.currentTurn === 'yaguarete' ? t('turno_yaguarete') : t('turno_perros')}
                 </span>
               </>
             )}
             {/* Botón mute */}
             <button
               onClick={() => setMuted(m => !m)}
-              title={muted ? 'Activar sonidos' : 'Silenciar'}
+              title={muted ? t('activar_sonidos') : t('silenciar')}
               style={{
                 background: 'none',
                 border: 'none',
@@ -345,10 +338,10 @@ export function App() {
             }}
           >
             {capturedPerros.length > 0 && (
-              <span>🐕 Perros: {15 - capturedPerros.length}/15</span>
+              <span>{t('perros_restantes').replace('{n}', String(15 - capturedPerros.length))}</span>
             )}
             {capturedYaguarete.length > 0 && (
-              <span>🐆 Yaguareté: capturado</span>
+              <span>{t('yaguarete_capturado')}</span>
             )}
           </div>
         );
@@ -386,7 +379,7 @@ export function App() {
             (e.currentTarget as HTMLButtonElement).style.color = '#7a6a58';
           }}
         >
-          Nueva partida
+          {t('nueva_partida')}
         </button>
       )}
     </div>

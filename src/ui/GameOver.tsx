@@ -3,6 +3,7 @@
 // Dos variantes: victoria de perros (acorralamiento) / victoria del yaguareté.
 
 import type { GameStatus } from '../engine/domain/types';
+import { useT } from '../i18n/LanguageContext';
 
 interface GameOverProps {
   status: GameStatus;
@@ -11,6 +12,7 @@ interface GameOverProps {
 }
 
 export function GameOver({ status, onPlayAgain, onChangeMode }: GameOverProps) {
+  const t = useT();
   const isYaguareteWins = status === 'yaguarete_win_umbral';
 
   return (
@@ -98,7 +100,7 @@ export function GameOver({ status, onPlayAgain, onChangeMode }: GameOverProps) {
             animation: isYaguareteWins ? 'fadeSlideIn 0.6s ease-out 0.2s both' : undefined,
           }}
         >
-          {isYaguareteWins ? '¡Ganó el Yaguareté!' : '¡Ganaron los Perros!'}
+          {isYaguareteWins ? t('gano_yaguarete') : t('ganaron_perros')}
         </h2>
 
         {/* Subtítulo explicativo */}
@@ -112,9 +114,7 @@ export function GameOver({ status, onPlayAgain, onChangeMode }: GameOverProps) {
             animation: 'fadeSlideIn 0.6s ease-out 0.3s both',
           }}
         >
-          {isYaguareteWins
-            ? 'El Yaguareté se libera. Con solo 6 perros en el tablero, el jaguar recupera su dominio de la selva.'
-            : 'Los perros han acorralado al Yaguareté. Sin movimientos disponibles, el jaguar queda atrapado en la selva.'}
+          {isYaguareteWins ? t('gano_yaguarete_desc') : t('ganaron_perros_desc')}
         </p>
 
         {/* Ornamento */}
@@ -147,9 +147,7 @@ export function GameOver({ status, onPlayAgain, onChangeMode }: GameOverProps) {
             animation: 'fadeSlideIn 0.6s ease-out 0.45s both',
           }}
         >
-          {isYaguareteWins
-            ? 'En la cosmovisión mbya guaraní, el Yaguareté representa la fuerza vital de la selva. Cuando escapa del cerco, la comunidad renueva su vínculo con la naturaleza.'
-            : 'Acorralar al Yaguareté es parte del juego. Los perros, guardianes de la oscuridad según la tradición, cumplen su misión de proteger el espacio comunitario.'}
+          {isYaguareteWins ? t('gano_yaguarete_cultural') : t('ganaron_perros_cultural')}
         </p>
 
         {/* Botones */}
@@ -190,7 +188,7 @@ export function GameOver({ status, onPlayAgain, onChangeMode }: GameOverProps) {
                 '0 6px 20px rgba(212,130,10,0.4)';
             }}
           >
-            Jugar de nuevo
+            {t('jugar_de_nuevo')}
           </button>
 
           <button
@@ -216,7 +214,7 @@ export function GameOver({ status, onPlayAgain, onChangeMode }: GameOverProps) {
               (e.currentTarget as HTMLButtonElement).style.color = '#a09080';
             }}
           >
-            Cambiar modo
+            {t('cambiar_modo')}
           </button>
         </div>
       </div>

@@ -3,6 +3,7 @@
 // Texturas SVG, triángulo cueva como refugio natural, paleta tierra/verde.
 
 import type { Node, Edge } from '../engine/domain/types';
+import { useT } from '../i18n/LanguageContext';
 
 interface BoardProps {
   nodes: Node[];
@@ -19,6 +20,7 @@ export function Board({
   edges,
   children,
 }: BoardProps) {
+  const t = useT();
   const mainNodes = nodes.filter(n => n?.zone === 'main');
 
   // Gradiente de madera para el fondo
@@ -38,7 +40,7 @@ export function Board({
       viewBox={`${-pad} ${-pad} ${frameW} ${frameH}`}
       style={{ width: '100%', height: 'auto', maxHeight: '80vh', filter: 'drop-shadow(0 8px 24px rgba(0,0,0,0.6))' }}
       role="img"
-      aria-label="Tablero del Chiví Korá"
+      aria-label={t('tablero_label')}
     >
       <defs>
         {/* Gradiente de madera oscura */}

@@ -3,6 +3,7 @@
 // Sin menciones a personas — solo contexto histórico y simbólico.
 
 import { useState } from 'react';
+import { useT } from '../i18n/LanguageContext';
 
 interface CulturalPanelProps {
   compact?: boolean;
@@ -65,6 +66,7 @@ const DIVIDER_STYLE = {
 
 export function CulturalPanel({ compact = false }: CulturalPanelProps) {
   const [open, setOpen] = useState(false);
+  const t = useT();
 
   return (
     <div style={PANEL_STYLE}>
@@ -82,7 +84,7 @@ export function CulturalPanel({ compact = false }: CulturalPanelProps) {
             <circle cx="7" cy="7" r="6" stroke="#8b7355" strokeWidth="1.2" />
             <text x="7" y="10.5" textAnchor="middle" fontSize="8" fill="#8b7355" fontFamily="serif">i</text>
           </svg>
-          Sobre el juego
+          {t('sobre_el_juego')}
         </span>
         <svg
           width="12"
@@ -103,30 +105,30 @@ export function CulturalPanel({ compact = false }: CulturalPanelProps) {
         <div style={CONTENT_STYLE}>
           <div>
             <p style={{ ...TEXT_STYLE, margin: 0 }}>
-              El <strong style={{ color: '#c8a050' }}>Chiví Korá</strong> es un juego de tablero tradicional de la cultura mbya guaraní, originario de la región de Misiones, en el noreste argentino, y presente también en comunidades de Paraguay.
+              {t('cultural_intro')}
             </p>
           </div>
 
           <hr style={DIVIDER_STYLE} />
 
           <div>
-            <p style={SECTION_TITLE_STYLE}>El Yaguareté</p>
+            <p style={SECTION_TITLE_STYLE}>{t('cultural_yaguarete_titulo')}</p>
             <p style={{ ...TEXT_STYLE, margin: 0 }}>
-              El yaguareté (Panthera onca) es el felino más grande de América. En la cosmovisión mbya, representa la fuerza vital, la soberanía territorial y la memoria de los montes. Acorralarlo significa simbólicamente alejarlo de la comunidad.
+              {t('cultural_yaguarete_texto')}
             </p>
           </div>
 
           <div>
-            <p style={SECTION_TITLE_STYLE}>Los Perros — Checupe</p>
+            <p style={SECTION_TITLE_STYLE}>{t('cultural_perros_titulo')}</p>
             <p style={{ ...TEXT_STYLE, margin: 0 }}>
-              Los perros del tablero son <em>Checupe</em> — una raza tradicional que los mayores recuerdan como compañera de caza y guardiana de la oscuridad. El juego evoca esa alianza entre el pueblo y sus perros para contener al felino más grande de América.
+              {t('cultural_perros_texto')}
             </p>
           </div>
 
           <div>
-            <p style={SECTION_TITLE_STYLE}>El significado profundo</p>
+            <p style={SECTION_TITLE_STYLE}>{t('cultural_significado_titulo')}</p>
             <p style={{ ...TEXT_STYLE, margin: 0 }}>
-              "Korá" significa corral (del castellano). El juego recrea simbólicamente la relación entre la comunidad (los perros) y las fuerzas de la naturaleza (el yaguareté) — no como enemigo, sino como parte del equilibrio del mundo.
+              {t('cultural_significado_texto')}
             </p>
           </div>
 
@@ -134,7 +136,7 @@ export function CulturalPanel({ compact = false }: CulturalPanelProps) {
             <>
               <hr style={DIVIDER_STYLE} />
               <p style={{ ...TEXT_STYLE, fontSize: '0.75rem', fontStyle: 'italic', margin: 0, color: '#6a5a48' }}>
-                Este juego forma parte del patrimonio cultural inmaterial de los pueblos guaraníes. Respeto y reconocimiento para las comunidades que lo mantienen vivo.
+                {t('cultural_footer')}
               </p>
             </>
           )}
