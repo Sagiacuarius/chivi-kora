@@ -2,7 +2,9 @@
 
 Juego de estrategia ancestral guaraní implementado en TypeScript + React + Vite.
 
-El **Yaguareté** (jaguar) debe capturar a los **Perros** saltando sobre ellos, mientras los perros intentan acorralarlo sin dejarlo mover.
+**Chiví Korá** significa "el corral del jaguar" en guaraní (*chiví* = jaguar, *korá* = corral/cercado).
+
+El **Yaguareté** 🐆 debe capturar a los **Perros** 🐕 saltando sobre ellos, mientras los perros intentan acorralarlo sin dejarlo mover.
 
 ## 🎮 Demo
 
@@ -47,16 +49,32 @@ npm run build    # Producción
 
 ```
 src/
-├── domain/          # Entidades y reglas de negocio
-│   ├── Board.ts
-│   ├── GameEngine.ts
-│   └── Position.ts
-├── ui/              # Componentes React
-│   ├── Board.tsx
-│   ├── Piece.tsx
-│   ├── Tutorial.tsx
-│   └── ...
-└── App.tsx
+├── engine/
+│   ├── domain/               # Reglas de negocio
+│   │   ├── board-topology.ts # Grafo de 34 nodos
+│   │   ├── game-rules.ts     # Movimientos y capturas
+│   │   ├── heuristic.ts      # Evaluación de posiciones
+│   │   └── types.ts          # Tipos inmutables
+│   ├── use-cases/            # Casos de uso
+│   │   ├── create-game.ts    # Inicializar partida
+│   │   ├── execute-move.ts   # Ejecutar jugada
+│   │   └── validate-move.ts  # Validar movimiento
+│   ├── ai.ts                 # Motor de IA
+│   └── index.ts
+├── ui/                       # Componentes React
+│   ├── Board.tsx             # Tablero SVG
+│   ├── Piece.tsx             # Piezas SVG (🐆🐕)
+│   ├── Tutorial.tsx          # Tutorial interactivo
+│   ├── GameOver.tsx          # Pantalla de victoria
+│   ├── GameSetup.tsx         # Configuración inicial
+│   ├── MoveHistory.tsx       # Historial de jugadas
+│   ├── CulturalPanel.tsx     # Contenido cultural
+│   ├── useAI.ts              # Hook de IA
+│   ├── useGame.ts            # Hook de estado
+│   ├── useGameSetup.ts       # Hook de setup
+│   ├── useSound.ts           # Hook de sonido
+│   └── App.tsx
+└── main.tsx                  # Entry point
 ```
 
 ## 📝 Licencia
