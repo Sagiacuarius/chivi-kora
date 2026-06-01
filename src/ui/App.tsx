@@ -17,7 +17,6 @@ import { useSound } from './useSound';
 import type { AIBestMove } from '../engine/ai';
 import { boardTopology } from '../engine/domain/board-topology';
 import { useT } from '../i18n/LanguageContext';
-import { LanguageSelector } from '../i18n/LanguageSelector';
 
 type GamePhase = 'setup' | 'playing' | 'ended';
 
@@ -168,7 +167,6 @@ export function App() {
 
   return (
     <>
-      <LanguageSelector />
       {/* Pantalla de resultado */}
       {isEnded && (
         <GameOver

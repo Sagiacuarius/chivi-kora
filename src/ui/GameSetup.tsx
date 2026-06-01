@@ -6,6 +6,7 @@ import type { Player } from '../engine/domain/types';
 import type { Difficulty } from '../engine/ai';
 import { CulturalPanel } from './CulturalPanel';
 import { useT } from '../i18n/LanguageContext';
+import { LanguageSelector } from '../i18n/LanguageSelector';
 
 interface GameSetupProps {
   playerSide: Player;
@@ -83,6 +84,7 @@ export function GameSetup({
         padding: '2rem 1rem',
       }}
     >
+      <LanguageSelector />
       {/* ── Título ── */}
       <header style={{ textAlign: 'center', animation: 'fadeSlideIn 0.5s ease-out' }}>
         {/* Ornamento superior */}

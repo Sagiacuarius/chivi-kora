@@ -6,6 +6,7 @@ import { useState } from 'react';
 import type { Node, Edge } from '../engine/domain/types';
 import { boardTopology } from '../engine/domain/board-topology';
 import { useT } from '../i18n/LanguageContext';
+import { LanguageSelector } from '../i18n/LanguageSelector';
 import type { TranslationKey } from '../i18n/translations';
 
 interface TutorialStep {
@@ -242,7 +243,6 @@ function TutorialBoard({
         const node = nodesMap.get(piece.nodeId);
         if (!node) return null;
         const isYaguarete = piece.type === 'yaguarete';
-        const color = isYaguarete ? '#e8941a' : '#5a4030';
         const r = isYaguarete ? 16 : 12; // mismo que Piece.tsx
         const animClass = piece.anim === 'bounce' ? 'tutorialBounce' :
                          piece.anim === 'pulse' ? 'tutorialPulse' : '';
@@ -254,41 +254,17 @@ function TutorialBoard({
               rx={r * 0.85} ry={r * 0.25}
               fill="rgba(0,0,0,0.3)"
             />
-            {/* Pieza: silueta SVG */}
-            <g transform={`translate(${node.x},${node.y}) scale(${(r / 10).toFixed(3)})`}>
-              {isYaguarete ? (
-                <>
-                  <ellipse cx={-1} cy={1} rx={7} ry={4} fill={color} />
-                  <circle cx={7} cy={-2} r={3} fill={color} />
-                  <polygon points="5,-5 6.5,-8 8,-4.5" fill={color} />
-                  <polygon points="7.5,-4.5 8.5,-7 10,-4" fill={color} />
-                  <ellipse cx={10} cy={-1.5} rx={2} ry={1.3} fill={color} />
-                  <circle cx={8} cy={-3} r={0.5} fill="#1a0a00" />
-                  <path d="M-8,0 Q-13,-3 -12,-7" stroke={color} strokeWidth={1.8} fill="none" strokeLinecap="round" />
-                  <rect x={-5.5} y={4.5} width={1.5} height={4} rx={0.6} fill={color} />
-                  <rect x={-1.5} y={4.5} width={1.5} height={4} rx={0.6} fill={color} />
-                  <rect x={3} y={4.5} width={1.5} height={3.5} rx={0.6} fill={color} />
-                  <rect x={5.5} y={4.5} width={1.5} height={3.5} rx={0.6} fill={color} />
-                  <circle cx={-3} cy={1.5} r={0.9} fill="#c07010" opacity={0.6} />
-                  <circle cx={1} cy={2.5} r={0.8} fill="#c07010" opacity={0.6} />
-                  <circle cx={5} cy={0} r={0.9} fill="#c07010" opacity={0.6} />
-                </>
-              ) : (
-                <>
-                  <ellipse cx={0} cy={1} rx={6} ry={3.5} fill={color} />
-                  <ellipse cx={7} cy={-1.5} rx={3} ry={2.5} fill={color} />
-                  <ellipse cx={10} cy={-1} rx={2.2} ry={1.8} fill={color} />
-                  <ellipse cx={5.5} cy={-4.5} rx={1.5} ry={3} fill={color} transform="rotate(-12,5.5,-4.5)" />
-                  <circle cx={11.5} cy={-1.5} r={0.6} fill="#1a0a00" />
-                  <circle cx={8} cy={-2.5} r={0.5} fill="#1a0a00" />
-                  <path d="M-6,0 Q-10,-2 -9,-5" stroke={color} strokeWidth={1.5} fill="none" strokeLinecap="round" />
-                  <rect x={-4} y={4} width={1.4} height={3.5} rx={0.6} fill={color} />
-                  <rect x={-0.3} y={4} width={1.4} height={3.5} rx={0.6} fill={color} />
-                  <rect x={3.5} y={4} width={1.4} height={3} rx={0.6} fill={color} />
-                  <rect x={6} y={4} width={1.4} height={3} rx={0.6} fill={color} />
-                </>
-              )}
-            </g>
+            {/* Pieza: emoji */}
+            <text
+              x={node.x}
+              y={node.y + 1}
+              textAnchor="middle"
+              dominantBaseline="central"
+              fontSize={r * 2.1}
+              style={{ pointerEvents: 'none', userSelect: 'none' }}
+            >
+              {isYaguarete ? '🐆' : '🐕'}
+            </text>
           </g>
         );
       })}
@@ -335,6 +311,7 @@ export function Tutorial({ onComplete, onSkip }: TutorialProps) {
         animation: 'fadeSlideIn 0.35s ease-out',
       }}
     >
+      <LanguageSelector />
       {/* Progress bar */}
       <div style={{ width: '100%', maxWidth: 480 }}>
         <div
