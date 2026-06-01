@@ -254,6 +254,9 @@ function TutorialBoard({
               rx={r * 0.85} ry={r * 0.25}
               fill="rgba(0,0,0,0.3)"
             />
+            {/* Área cliqueable (solo para consistencia visual en tutorial) */}
+            <circle cx={node.x} cy={node.y} r={r + 2} fill="transparent" />
+
             {/* Pieza: emoji */}
             <text
               x={node.x}

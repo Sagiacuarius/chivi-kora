@@ -103,6 +103,9 @@ export function Piece({
         />
       )}
 
+      {/* Área cliqueable garantizada (cross-platform, no depende de fuentes) */}
+      <circle cx={x} cy={y} r={r + 2} fill="transparent" />
+
       {/* Pieza: emoji nativo (renderizado consistente) */}
       <text
         x={x}
