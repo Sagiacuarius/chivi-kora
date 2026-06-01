@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chiví Korá — El Juego del Yaguareté</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+    <style>
+      *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+      :root {
+        --color-bg-deep:      #0d1a0f;
+        --color-bg-forest:    #132118;
+        --color-bg-moss:      #1a2e1c;
+        --color-wood-dark:    #3d2b1a;
+        --color-wood-mid:     #5c3d1e;
+        --color-wood-light:   #8b5a2b;
+        --color-earth:        #6b4c2a;
+        --color-jungle-dark:  #1a3320;
+        --color-jungle-mid:   #2d5a3d;
+        --color-jungle-light: #4a7c59;
+        --color-yaguarete:    #e8941a;
+        --color-yaguarete-glow: #f0b040;
+        --color-perro:        #7a5c3a;
+        --color-perro-shadow: #4a3520;
+        --color-gold:         #d4a843;
+        --color-gold-dim:     #9a7830;
+        --color-text-light:   #e8dcc8;
+        --color-text-muted:   #a09080;
+        --color-cave-bg:      #1a100a;
+        --color-cave-border:  #6b4c2a;
+      }
+
+      body {
+        font-family: 'Nunito', system-ui, sans-serif;
+        background:
+          radial-gradient(ellipse at 50% 0%, #1a3a20 0%, transparent 60%),
+          radial-gradient(ellipse at 80% 80%, #0d2a10 0%, transparent 50%),
+          radial-gradient(ellipse at 20% 90%, #0d1a0f 0%, transparent 40%),
+          linear-gradient(180deg, #0d1a0f 0%, #1a2e1c 50%, #0d1a0f 100%);
+        background-attachment: fixed;
+        color: var(--color-text-light);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow-x: hidden;
+      }
+
+      /* Textura de hojas sutiles en el fondo */
+      body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background-image:
+          radial-gradient(circle at 10% 20%, rgba(45,90,61,0.08) 0%, transparent 25%),
+          radial-gradient(circle at 90% 15%, rgba(45,90,61,0.06) 0%, transparent 20%),
+          radial-gradient(circle at 80% 70%, rgba(45,90,61,0.07) 0%, transparent 22%),
+          radial-gradient(circle at 15% 80%, rgba(45,90,61,0.05) 0%, transparent 18%);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      #root {
+        width: 100%;
+        max-width: 640px;
+        padding: 1rem;
+        position: relative;
+        z-index: 1;
+      }
+
+      /* Scrollbar estilizada */
+      ::-webkit-scrollbar { width: 8px; }
+      ::-webkit-scrollbar-track { background: var(--color-bg-deep); }
+      ::-webkit-scrollbar-thumb {
+        background: var(--color-wood-mid);
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover { background: var(--color-wood-light); }
+
+      /* Selección de texto */
+      ::selection {
+        background: rgba(232,148,26,0.3);
+        color: var(--color-text-light);
+      }
+
+      /* Focus visible */
+      :focus-visible {
+        outline: 2px solid var(--color-yaguarete);
+        outline-offset: 2px;
+      }
+
+      /* Animaciones globales */
+      @keyframes fadeSlideIn {
+        from { opacity: 0; transform: translateY(12px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      @keyframes pulseGlow {
+        0%, 100% { box-shadow: 0 0 8px rgba(232,148,26,0.4); }
+        50%       { box-shadow: 0 0 20px rgba(232,148,26,0.7); }
+      }
+
+      @keyframes thinkingPulse {
+        0%, 100% { opacity: 0.5; }
+        50%       { opacity: 1; }
+      }
+
+      @keyframes tutorialPulse {
+        0%, 100% { opacity: 0.5; r: 14; }
+        50%       { opacity: 0.9; r: 16; }
+      }
+
+      @keyframes tutorialBounce {
+        0%, 100% { transform: translateY(0); }
+        50%       { transform: translateY(-5px); }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
