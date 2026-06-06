@@ -7,6 +7,7 @@ import type { Lang } from './translations';
 const LABELS: Record<Lang, string> = {
   es: 'ES',
   en: 'EN',
+  pt: 'PT',
 };
 
 export function LanguageSelector() {
@@ -41,6 +42,7 @@ export function LanguageSelector() {
       >
         <option value="es">{LABELS.es}</option>
         <option value="en">{LABELS.en}</option>
+        <option value="pt">{LABELS.pt}</option>
       </select>
     </div>
   );
